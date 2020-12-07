@@ -1,0 +1,42 @@
+---
+
+galaxy_info:
+  role_name: {{ role_name }}
+  author: AUTHOR
+  description: DESCRIPTION
+  #company:
+  #issue_tracker_url:
+  license: BSD-3-Clause
+
+  min_ansible_version: 2.8
+  #min_ansible_container_version:
+
+  platforms:
+    - name: Debian
+      versions:
+        - all
+
+    # RedHat/CentOS
+    - name: EL
+      versions:
+        - all
+
+    - name: FreeBSD
+      versions:
+        - all
+
+    - name: OpenBSD
+      versions:
+        - all
+
+    - name: Ubuntu
+      versions:
+        - all
+
+  galaxy_tags:
+    - {{ role_name }}
+
+  dependencies: []
+
+# vim: set ft=yaml.ansible sw=2 ts=2 et colorcolumn=160 :
+# eof
