@@ -36,7 +36,7 @@
   tags:
     - {{ role_name }}
 
-- name: packages (redhat)
+- name: packages (redhat/centos)
   yum:
     name: '{{ '{{' }} {{ role_name }}_packages_redhat | default([]) {{ '}}' }}'
     state: '{{ '{{' }} {{ role_name }}_packages_redhat_state | default("latest") {{ '}}' }}'
