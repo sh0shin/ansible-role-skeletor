@@ -24,6 +24,19 @@
   tags:
     - {{ role_name }}
 
+# directory
+- name: {{ role_name }} config (directory)
+  file:
+    dest: '{{ '{{' }} {{ role_name }}_cfg_dir {{ '}}' }}'
+    state: directory
+    mode: '{{ '{{' }} {{ role_name }}_cfg_dir_mode | default({{ role_name }}_dir_mode) {{ '}}' }}'
+    owner: '{{ '{{' }} {{ role_name }}_cfg_dir_owner | default({{ role_name}}_owner) {{ '}}' }}'
+    group: '{{ '{{' }} {{ role_name }}_cfg_dir_group | default({{ role_name }}_group) {{ '}}' }}'
+  when: {{ role_name }}_enabled
+        and ansible_os_family | string in {{ role_name }}_os_family_supported
+  tags:
+    - {{ role_name }}
+
 # template
 - name: {{ role_name }} config (template)
   template:

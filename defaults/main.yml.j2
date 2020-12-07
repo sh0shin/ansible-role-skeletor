@@ -25,12 +25,13 @@
 {{ role_name }}_redhat_packages: []
 
 # config
-{{ role_name }}_cfg_file: "/etc/{{ role_name }}.conf"
+{{ role_name }}_cfg_dir: "/etc/{{ role_name }}"
+{{ role_name }}_cfg_file: "{{ '{{' }} {{ role_name }}_cfg_dir {{ '}}' }}/{{ role_name }}.conf"
 #{{ role_name }}_cfg_file_validate:
   
 # overrides
+#{{ role_name }}_cfg_dir_mode: "0750"
 #{{ role_name }}_cfg_file_mode: "0444"
-#...
 
 # service
 {{ role_name }}_service: '{{ role_name }}'
