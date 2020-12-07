@@ -1,0 +1,19 @@
+---
+
+- name: start_{{ role_name }}
+  service:
+    name: '{{ '{{' }} {{ role_name }}_service {{'}}'}}'
+    state: started
+
+- name: stop_{{ role_name }}
+  service:
+    name: '{{ '{{' }} {{ role_name }}_service {{'}}'}}'
+    state: stopped
+
+- name: restart_{{ role_name }}
+  service:
+    name: '{{ '{{' }} {{ role_name }}_service {{ '}}' }}'
+    state: restarted
+
+# vim: set ft=yaml.ansible sw=2 ts=2 et colorcolumn=160 :
+# eof

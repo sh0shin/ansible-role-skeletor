@@ -1,0 +1,39 @@
+---
+
+# enabled
+{{ role_name }}_enabled: no
+
+# defaults
+{{ role_name }}_file_mode: "0644"
+{{ role_name }}_dir_mode: "0755"
+{{ role_name }}_owner: "root"
+{{ role_name }}_group: "wheel"
+{{ role_name }}_backup: yes
+{{ role_name }}_umask: "022"
+
+# packages
+{{ role_name }}_debian_packages_repo: []
+{{ role_name }}_debian_packages: []
+
+{{ role_name }}_freebsd_packages_repo: []
+{{ role_name }}_freebsd_packages: []
+
+{{ role_name }}_openbsd_packages_repo: []
+{{ role_name }}_openbsd_packages: []
+
+{{ role_name }}_redhat_packages_repo: []
+{{ role_name }}_redhat_packages: []
+
+# config
+{{ role_name }}_cfg_file: "/etc/{{ role_name }}.conf"
+#{{ role_name }}_cfg_file_validate:
+  
+# overrides
+#{{ role_name }}_cfg_file_mode: "0444"
+#...
+
+# service
+{{ role_name }}_service: '{{ role_name }}'
+
+# vim: set ft=yaml.ansible sw=2 ts=2 et colorcolumn=160 :
+# eof

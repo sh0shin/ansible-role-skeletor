@@ -1,0 +1,59 @@
+---
+
+# forced os variables
+- name: forced os variables
+  include_vars: "{{ '{{' }} lookup('first_found', params) {{ '}}' }}"
+  vars:
+    params:
+      files:
+        - '{{ '{{' }} role_name {{ '}}' }}-{{ '{{' }} inventory_hostname {{ '}}' }}.yml'
+        - '{{ '{{' }} role_name {{ '}}' }}-{{ '{{' }} inventory_hostname_short {{ '}}' }}.yml'
+        - '{{ '{{' }} role_name {{ '}}' }}.yml'
+        - '{{ '{{' }} ansible_distribution {{ '}}' }}-{{ '{{' }} ansible_machine | default("none") {{ '}}' }}.yml'
+        - '{{ '{{' }} ansible_distribution {{ '}}' }}-{{ '{{' }} ansible_distribution_release | default(0) {{ '}}' }}.yml'
+        - '{{ '{{' }} ansible_distribution {{ '}}' }}-{{ '{{' }} ansible_distribution_version | default(0) {{ '}}' }}.yml'
+        - '{{ '{{' }} ansible_distribution {{ '}}' }}-{{ '{{' }} ansible_distribution_major_version | default(0) {{ '}}' }}.yml'
+        - '{{ '{{' }} ansible_distribution {{ '}}' }}.yml'
+        - '{{ '{{' }} ansible_os_family {{ '}}' }}.yml'
+        - 'main.yml'
+      paths:
+        - '{{ '{{' }} inventory_dir {{ '}}' }}/vars'
+        - 'vars'
+  when: {{ role_name }}_enabled
+        and ansible_os_family | string in {{ role_name }}_os_family_supported
+  tags:
+    - {{ role_name }}
+
+# template
+- name: {{ role_name }} config (template)
+  template:
+    dest: '{{ '{{' }} {{ role_name }}_cfg_file {{ '}}' }}'
+    src: "{{ '{{' }} lookup('first_found', params) {{ '}}' }}"
+    #
+    mode: '{{ '{{' }} {{ role_name }}_cfg_file_mode | default({{ role_name }}_file_mode) {{ '}}' }}'
+    owner: '{{ '{{' }} {{ role_name }}_cfg_file_owner | default({{ role_name }}_owner) {{ '}}' }}'
+    group: '{{ '{{' }} {{ role_name }}_cfg_file_group | default({{ role_name }}_group) {{ '}}' }}'
+    backup: '{{ '{{' }} {{ role_name }}_cfg_file_backup | default({{ role_name }}_backup) {{ '}}' }}'
+    validate: '{{ '{{' }} {{ role_name }}_cfg_file_validate | default(omit) {{ '}}' }}'
+  vars:
+    tpl_default: '{{ '{{' }} {{ role_name }}_cfg_file | basename {{ '}}' }}'
+    tpl_presence: '{{ '{{' }} {{ role_name }}_cfg_file_template | default(tpl_default) {{ '}}' }}'
+    params:
+      files:
+        - '{{ '{{' }} tpl_presence {{ '}}' }}.{{ '{{' }} inventory_hostname {{ '}}' }}.j2'
+        - '{{ '{{' }} tpl_presence {{ '}}' }}.{{ '{{' }} ansible_distribution {{ '}}' }}-{{ '{{' }} ansible_distribution_version | default(0) {{ '}}' }}.j2'
+        - '{{ '{{' }} tpl_presence {{ '}}' }}.{{ '{{' }} ansible_distribution {{ '}}' }}-{{ '{{' }} ansible_distribution_major_version | default(0) {{ '}}' }}.j2'
+        - '{{ '{{' }} tpl_presence {{ '}}' }}.{{ '{{' }} ansible_distribution {{ '}}' }}.j2'
+        - '{{ '{{' }} tpl_presence {{ '}}' }}.{{ '{{' }} ansible_os_family {{ '}}' }}.j2'
+        - '{{ '{{' }} tpl_presence {{ '}}' }}.j2'
+        - '{{ '{{' }} tpl_presence {{ '}}' }}.j2.in' # role default
+      paths:
+        - '{{ '{{' }} inventory_dir {{ '}}' }}/templates'
+        - 'templates'
+  when: {{ role_name }}_enabled
+        and ansible_os_family | string in {{ role_name }}_os_family_supported
+  tags:
+    - {{ role_name }}
+
+# vim: set ft=yaml.ansible sw=2 ts=2 et colorcolumn=160 :
+# eof
