@@ -8,7 +8,8 @@
 .DS_Store
 .VolumeIcon.icns
 
+#
 
-
+!.git
 !.git_keep
 !.gitkeep
