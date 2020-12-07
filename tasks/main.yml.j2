@@ -24,6 +24,29 @@
   tags:
     - {{ role_name }}
 
+# packages
+- name: packages (freebsd)
+  pkgng:
+    name: '{{ '{{' }} {{ role_name }}_packages_freebsd | default([]) {{ '}}' }}'
+    state: '{{ '{{' }} {{ role_name }}_packages_freebsd_state | default("latest") {{ '}}' }}'
+    cached: '{{ '{{' }} {{ role_name }}_packages_freebsd_cached | default(false) {{ '}}' }}'
+  when: {{ role_name }}_enabled
+        and ansible_os_family | string in {{ role_name }}_os_family_supported
+        and ansible_os_family == 'FreeBSD'
+  tags:
+    - {{ role_name }}
+
+- name: packages (redhat)
+  yum:
+    name: '{{ '{{' }} {{ role_name }}_packages_redhat | default([]) {{ '}}' }}'
+    state: '{{ '{{' }} {{ role_name }}_packages_redhat_state | default("latest") {{ '}}' }}'
+    update_cache: '{{ '{{' }} {{ role_name }}_packages_redhat_update_cache | default(true) {{ '}}' }}'
+  when: {{ role_name }}_enabled
+        and ansible_os_family | string in {{ role_name }}_os_family_supported
+        and ansible_os_family == 'RedHat'
+  tags:
+    - {{ role_name }}
+
 # directory
 - name: {{ role_name }} config (directory)
   file:
