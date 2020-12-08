@@ -15,7 +15,7 @@ See `defaults/main.yml` for now.
 ```yaml
 - hosts: all
   roles:
-    - { role: AUTHOR.{{ role_name }} }
+    - { role: AUTHOR.{{ role_name }}, {{ role_name }}_enabled: yes }
 ```
 
 ## License
