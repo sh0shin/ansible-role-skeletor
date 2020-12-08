@@ -25,14 +25,47 @@
     - {{ role_name }}
 
 # packages
+- name: packages (generic)
+  package:
+    name: '{{ '{{' }} {{ role_name }}_packages | default([]) {{ '}}' }}'
+    state: '{{ '{{' }} {{ role_name }}_packages_state | default("latest") {{ '}}' }}'
+  when: {{ role_name }}_enabled
+        and ansible_os_family | string in {{ role_name }}_os_family_supported
+  tags:
+    - {{ role_name }}
+
+- name: packages (debian/ubuntu)
+  apt:
+    name: '{{ '{{' }} {{ role_name }}_packages_debian | default([]) {{ '}}' }}'
+    state: '{{ '{{' }} {{ role_name }}_packages_debian_state | default("latest") {{ '}}' }}'
+    update_cache: '{{ '{{' }} {{ role_name }}_packages_debian_update_cache | default(true) {{ '}}' }}'
+    # more parameters
+  when: {{ role_name }}_enabled
+        and ansible_os_family | string in {{ role_name }}_os_family_supported
+        and ansible_os_family == 'Debian'
+  tags:
+    - {{ role_name }}
+
 - name: packages (freebsd)
   pkgng:
     name: '{{ '{{' }} {{ role_name }}_packages_freebsd | default([]) {{ '}}' }}'
     state: '{{ '{{' }} {{ role_name }}_packages_freebsd_state | default("latest") {{ '}}' }}'
     cached: '{{ '{{' }} {{ role_name }}_packages_freebsd_cached | default(false) {{ '}}' }}'
+    # more parameters
   when: {{ role_name }}_enabled
         and ansible_os_family | string in {{ role_name }}_os_family_supported
         and ansible_os_family == 'FreeBSD'
+  tags:
+    - {{ role_name }}
+
+- name: packages (openbsd)
+  openbsd_pkg:
+    name: '{{ '{{' }} {{ role_name }}_packages_openbsd | default([]) {{ '}}' }}'
+    state: '{{ '{{' }} {{ role_name }}_packages_openbsd_state | default("latest") {{ '}}' }}'
+    # more parameters
+  when: {{ role_name }}_enabled
+        and ansible_os_family | string in {{ role_name }}_os_family_supported
+        and ansible_os_family == 'OpenBSD'
   tags:
     - {{ role_name }}
 
@@ -41,6 +74,7 @@
     name: '{{ '{{' }} {{ role_name }}_packages_redhat | default([]) {{ '}}' }}'
     state: '{{ '{{' }} {{ role_name }}_packages_redhat_state | default("latest") {{ '}}' }}'
     update_cache: '{{ '{{' }} {{ role_name }}_packages_redhat_update_cache | default(true) {{ '}}' }}'
+    # more parameters
   when: {{ role_name }}_enabled
         and ansible_os_family | string in {{ role_name }}_os_family_supported
         and ansible_os_family == 'RedHat'
