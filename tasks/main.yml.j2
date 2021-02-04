@@ -116,7 +116,7 @@
         - '{{ '{{' }} tpl_presence {{ '}}' }}.{{ '{{' }} ansible_distribution {{ '}}' }}.j2'
         - '{{ '{{' }} tpl_presence {{ '}}' }}.{{ '{{' }} ansible_os_family {{ '}}' }}.j2'
         - '{{ '{{' }} tpl_presence {{ '}}' }}.j2'
-        - '{{ '{{' }} tpl_presence {{ '}}' }}.j2.in' # role default
+        - '{{ '{{' }} tpl_presence {{ '}}' }}.in.j2'  # role default
       paths:
         - '{{ '{{' }} inventory_dir {{ '}}' }}/templates'
         - 'templates'
@@ -124,6 +124,3 @@
         and ansible_os_family | string in {{ role_name }}_os_family_supported
   tags:
     - {{ role_name }}
-
-# vim: set ft=yaml.ansible sw=2 ts=2 et colorcolumn=160 :
-# eof
