@@ -4,6 +4,7 @@
 {{ role_name }}_enabled: no
 
 # defaults
+{{ role_name }}_bin_mode: "0755"
 {{ role_name }}_file_mode: "0644"
 {{ role_name }}_dir_mode: "0755"
 {{ role_name }}_owner: "root"
@@ -16,22 +17,19 @@
 {{ role_name }}_packages: []
 
 # NOTE: use os package manager (recommended)
-{{ role_name }}_debian_packages: []
-{{ role_name }}_freebsd_packages: []
-{{ role_name }}_openbsd_packages: []
-{{ role_name }}_redhat_packages: []
+{{ role_name }}_packages_debian: []
+{{ role_name }}_packages_freebsd: []
+{{ role_name }}_packages_openbsd: []
+{{ role_name }}_packages_redhat: []
 
 # config
 {{ role_name }}_cfg_dir: "/etc/{{ role_name }}"
 {{ role_name }}_cfg_file: "{{ '{{' }} {{ role_name }}_cfg_dir {{ '}}' }}/{{ role_name }}.conf"
 #{{ role_name }}_cfg_file_validate:
-  
+
 # overrides
 #{{ role_name }}_cfg_dir_mode: "0750"
 #{{ role_name }}_cfg_file_mode: "0444"
 
 # service
 {{ role_name }}_service: '{{ role_name }}'
-
-# vim: set ft=yaml.ansible sw=2 ts=2 et colorcolumn=160 :
-# eof
