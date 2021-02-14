@@ -6,18 +6,28 @@
   vars:
     params:
       files:
+        # role
         - '{{ '{{' }} role_name {{ '}}' }}-{{ '{{' }} inventory_hostname {{ '}}' }}.yml'
         - '{{ '{{' }} role_name {{ '}}' }}-{{ '{{' }} inventory_hostname_short {{ '}}' }}.yml'
         - '{{ '{{' }} role_name {{ '}}' }}.yml'
+        # distribution
         - '{{ '{{' }} ansible_distribution {{ '}}' }}-{{ '{{' }} ansible_machine | default("none") {{ '}}' }}.yml'
+        - '{{ '{{' }} ansible_distribution {{ '}}' }}-{{ '{{' }} ansible_architecture | default("none") {{ '}}' }}.yml'
         - '{{ '{{' }} ansible_distribution {{ '}}' }}-{{ '{{' }} ansible_distribution_release | default(0) {{ '}}' }}.yml'
         - '{{ '{{' }} ansible_distribution {{ '}}' }}-{{ '{{' }} ansible_distribution_version | default(0) {{ '}}' }}.yml'
         - '{{ '{{' }} ansible_distribution {{ '}}' }}-{{ '{{' }} ansible_distribution_major_version | default(0) {{ '}}' }}.yml'
         - '{{ '{{' }} ansible_distribution {{ '}}' }}.yml'
+        # os family
+        - '{{ '{{' }} ansible_os_family {{ '}}' }}-{{ '{{' }} ansible_machine | default("none") {{ '}}' }}.yml'
+        - '{{ '{{' }} ansible_os_family {{ '}}' }}-{{ '{{' }} ansible_architecture | default("none") {{ '}}' }}.yml'
+        - '{{ '{{' }} ansible_os_family {{ '}}' }}-{{ '{{' }} ansible_distribution_release | default(0) {{ '}}' }}.yml'
+        - '{{ '{{' }} ansible_os_family {{ '}}' }}-{{ '{{' }} ansible_distribution_version | default(0) {{ '}}' }}.yml'
+        - '{{ '{{' }} ansible_os_family {{ '}}' }}-{{ '{{' }} ansible_distribution_major_version | default(0) {{ '}}' }}.yml'
         - '{{ '{{' }} ansible_os_family {{ '}}' }}.yml'
         - 'main.yml'
       paths:
         - '{{ '{{' }} inventory_dir {{ '}}' }}/vars'
+        - '{{ '{{' }} playbook_dir {{ '}}' }}/vars'
         - 'vars'
   when: {{ role_name }}_enabled
         and ansible_os_family | string in {{ role_name }}_os_family_supported
