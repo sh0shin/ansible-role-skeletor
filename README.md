@@ -1,3 +1,4 @@
+[//]: # ( vim: set ft=markdown : )
 # Ansible role skeletor
 Skeleton for Ansible roles
 
@@ -11,5 +12,3 @@ mv ROLENAME ansible-role-ROLENAME
  * LICENSE: `YEAR`, `AUTHOR`
  * README.md: `AUTHOR`, `DESCRIPTION`, `TODO`
  * meta/main.yml: `AUTHOR`, `DESCRIPTION`
-
-[//]: # ( vim: set ft=markdown sw=2 ts=2 noet : )
