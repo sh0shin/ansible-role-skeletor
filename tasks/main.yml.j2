@@ -34,17 +34,7 @@
   tags:
     - {{ role_name }}
 
-# packages
-- name: packages (generic)
-  package:
-    name: '{{ '{{' }} {{ role_name }}_packages | default([]) {{ '}}' }}'
-    state: '{{ '{{' }} {{ role_name }}_packages_state | default("latest") {{ '}}' }}'
-  when: {{ role_name }}_enabled
-        and ansible_os_family | string in {{ role_name }}_os_family_supported
-  tags:
-    - {{ role_name }}
-
-- name: packages (debian/ubuntu)
+- name: packages (apt)
   apt:
     name: '{{ '{{' }} {{ role_name }}_packages_debian | default([]) {{ '}}' }}'
     state: '{{ '{{' }} {{ role_name }}_packages_debian_state | default("latest") {{ '}}' }}'
@@ -56,7 +46,7 @@
   tags:
     - {{ role_name }}
 
-- name: packages (freebsd)
+- name: packages (pkgng)
   pkgng:
     name: '{{ '{{' }} {{ role_name }}_packages_freebsd | default([]) {{ '}}' }}'
     state: '{{ '{{' }} {{ role_name }}_packages_freebsd_state | default("latest") {{ '}}' }}'
@@ -68,7 +58,7 @@
   tags:
     - {{ role_name }}
 
-- name: packages (openbsd)
+- name: packages (openbsd_pkg)
   openbsd_pkg:
     name: '{{ '{{' }} {{ role_name }}_packages_openbsd | default([]) {{ '}}' }}'
     state: '{{ '{{' }} {{ role_name }}_packages_openbsd_state | default("latest") {{ '}}' }}'
@@ -79,7 +69,7 @@
   tags:
     - {{ role_name }}
 
-- name: packages (redhat/centos)
+- name: packages (yum)
   yum:
     name: '{{ '{{' }} {{ role_name }}_packages_redhat | default([]) {{ '}}' }}'
     state: '{{ '{{' }} {{ role_name }}_packages_redhat_state | default("latest") {{ '}}' }}'

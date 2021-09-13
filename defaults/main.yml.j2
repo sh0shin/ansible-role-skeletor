@@ -8,19 +8,15 @@
 {{ role_name }}_file_mode: "0644"
 {{ role_name }}_dir_mode: "0755"
 {{ role_name }}_owner: "root"
-{{ role_name }}_group: "wheel"
+{{ role_name }}_group: "sys"
 {{ role_name }}_backup: yes
 {{ role_name }}_umask: "022"
 
 # packages
-# NOTE: use generic package manager and vars/ansible_os_family.yml
-{{ role_name }}_packages: []
-
-# NOTE: use os package manager (recommended)
-{{ role_name }}_packages_debian: []
-{{ role_name }}_packages_freebsd: []
-{{ role_name }}_packages_openbsd: []
-{{ role_name }}_packages_redhat: []
+{{ role_name }}_packages_apt: []          # Debian/Ubuntu
+{{ role_name }}_packages_pkgng: []        # FreeBSD
+{{ role_name }}_packages_openbsd_pkg: []  # OpenBSD
+{{ role_name }}_packages_yum: []          # RedHat/CentOS
 
 # config
 {{ role_name }}_cfg_dir: "/etc/{{ role_name }}"
